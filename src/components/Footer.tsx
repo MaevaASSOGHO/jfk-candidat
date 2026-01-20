@@ -35,11 +35,13 @@ export default function Footer() {
         {/* Brand */}
         <div className="md:col-span-1">
           <div className="flex items-center gap-3">
+            <a href="/">
             <img
               src="/images/jfk-logo.png"
               alt="Votez Jean-François Kouassi"
               className="h-auto w-[190px]"
             />
+            </a>
           </div>
 
           <p className="mt-4 text-[#0B1F16]/80 leading-relaxed">

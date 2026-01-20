@@ -1,18 +1,22 @@
 "use client";
 
 import Link from "next/link";
+import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 const CI_ORANGE = "#F15A24";
 
-export default function MerciDon() {
+function MerciContent() {
   const sp = useSearchParams();
   const amount = sp.get("amount") || "";
 
   return (
     <main className="bg-white text-black">
       <section className="max-w-4xl mx-auto px-6 py-24 text-center">
-        <h1 className="text-3xl md:text-5xl font-extrabold">Merci pour votre soutien.</h1>
+        <h1 className="text-3xl md:text-5xl font-extrabold">
+          Merci pour votre soutien.
+        </h1>
+
         {amount && (
           <p className="mt-5 text-black/70">
             Montant : <span className="font-extrabold">{amount} FCFA</span>
@@ -37,5 +41,13 @@ export default function MerciDon() {
         </div>
       </section>
     </main>
+  );
+}
+
+export default function MerciDon() {
+  return (
+    <Suspense fallback={<main className="bg-white text-black" />}>
+      <MerciContent />
+    </Suspense>
   );
 }

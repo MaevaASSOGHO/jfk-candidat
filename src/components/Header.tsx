@@ -7,14 +7,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-6 text-white">
         
         {/* LOGO TEXTE ENCADRÉ */}
+        <a href="/">
         <img
-            src="/images/jfk-logo.png"
+            src="/images/logo.png"
             alt="Votez Jean-François Kouassi"
             width={260}
             height={110}
             className="h-auto w-[220px] md:w-[260px]"
         />
-
+        </a>
 
         {/* NAVIGATION */}
         <nav className="hidden md:flex gap-8 text-sm uppercase tracking-wide">
