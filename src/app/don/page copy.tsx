@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Image from "next/image";
 import Header from "@/components/Header";
@@ -8,10 +8,9 @@ import Header from "@/components/Header";
 const CI_ORANGE = "#F15A24";
 const CI_GREEN = "#007A3D";
 
-const formatXOF = (n: number) =>
-  new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
+const formatXOF = (n: number) => new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
 
-function DonContent() {
+export default function DonPage() {
   const sp = useSearchParams();
   const router = useRouter();
 
@@ -28,6 +27,7 @@ function DonContent() {
   const [consent, setConsent] = useState(false);
 
   useEffect(() => {
+    // si tu veux synchroniser quand amount query change
     if (initial && !amount) setAmount(String(initial));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initial]);
@@ -39,46 +39,50 @@ function DonContent() {
     if (!clean || Number(clean) <= 0) return alert("Veuillez entrer un montant valide.");
     if (!consent) return alert("Veuillez accepter la confidentialité.");
 
+    // Démo : ici tu brancheras le paiement (Wave/Orange Money/Stripe/…)
     alert(`Don (démo) : ${formatXOF(Number(clean))}\n${name} • ${phone} • ${city}`);
 
+    // option : rediriger vers une page merci si tu veux
     router.push(`/don/merci?amount=${encodeURIComponent(clean)}`);
   };
 
   return (
     <main className="bg-white text-black">
       <Header />
-
-      {/* ÉCRAN 1 — HERO */}
+              {/* ÉCRAN 1 — HERO */}
       <section className="relative min-h-screen text-white overflow-hidden">
-        <Image
-          key="hero-contact"
-          src="/images/hero-programme.jpg"
-          alt="Rejoindre le mouvement"
-          fill
-          priority
-          className="object-cover hero-zoom"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
+            <Image
+                  key="hero-contact"
+                  src="/images/hero-programme.jpg"
+                  alt="Rejoindre le mouvement"
+                  fill
+                  priority
+                  className="object-cover hero-zoom"
+                />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
+        
+                <div className="absolute inset-x-0 bottom-0 z-10">
+                  <div className="max-w-7xl mx-auto px-6 pb-10 md:pb-14 text-center">
 
-        <div className="absolute inset-x-0 bottom-0 z-10">
-          <div className="max-w-7xl mx-auto px-6 pb-10 md:pb-14 text-center">
-            <h1 className="mt-4 text-4xl md:text-6xl font-extrabold tracking-tight">
-              On compte sur vous.
-            </h1>
-
-            <div className="mt-7 flex justify-center">
-              <div className="h-1 w-44 overflow-hidden rounded-full">
-                <div className="h-full grid grid-cols-3">
-                  <div style={{ background: CI_ORANGE }} />
-                  <div className="bg-white" />
-                  <div style={{ background: CI_GREEN }} />
+                    <h1 className="mt-4 text-4xl md:text-6xl font-extrabold tracking-tight">
+                      On compte sur vous.                    
+                    </h1>
+                    {/* <p className="mt-5 text-white/85 text-base md:text-lg">
+                      Chaque Ivoirien peut contribuer.
+                    </p> */}
+        
+                    <div className="mt-7 flex justify-center">
+                      <div className="h-1 w-44 overflow-hidden rounded-full">
+                        <div className="h-full grid grid-cols-3">
+                          <div style={{ background: CI_ORANGE }} />
+                          <div className="bg-white" />
+                          <div style={{ background: CI_GREEN }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+              </section>
       <section className="max-w-7xl mx-auto px-6 py-20 md:py-24">
         <div className="text-center">
           <p className="text-xs uppercase tracking-[0.32em] font-semibold text-black/70">
@@ -237,13 +241,5 @@ function DonContent() {
         </div>
       </section>
     </main>
-  );
-}
-
-export default function DonPage() {
-  return (
-    <Suspense fallback={<main className="bg-white text-black" />}>
-      <DonContent />
-    </Suspense>
   );
 }

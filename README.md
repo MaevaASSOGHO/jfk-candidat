@@ -41,3 +41,10 @@ Le [slug] te permet d’avoir des URLs comme :
 /actualites/evenements/meeting-abobo
 
 /actualites/evenements/tour-yopougon
+
+Ton build plante à cause de useSearchParams() : en App Router, Next doit parfois suspendre la lecture des search params, et en build (prerender) ça déclenche l’erreur si ce n’est pas enveloppé correctement.
+
+✅ Correction simple : wrapper avec <Suspense> et déplacer useSearchParams() dans un composant enfant.
+Ça vient du même problème que /don/merci : dans /don, tu utilises useSearchParams() directement au top-level du composant. En build, Next essaie de prerender et ça peut planter si useSearchParams n’est pas dans un composant encapsulé par <Suspense>.
+
+✅ Solution : on garde tout ton code, on déplace la logique useSearchParams dans un enfant et on wrap avec Suspense.
