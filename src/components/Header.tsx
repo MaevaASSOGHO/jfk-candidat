@@ -134,7 +134,8 @@ export default function Header() {
             onClick={() => setOpen(false)}
           />
 
-          <div className="relative h-full w-full bg-white">
+          <div className="relative h-full w-full text-white"
+            style={{ background: CI_GREEN }}>
             {/* Top bar */}
             <div className="flex items-center justify-between px-6 py-6">
               <div className="w-11" />
@@ -144,7 +145,7 @@ export default function Header() {
                 className="inline-flex items-center justify-center h-11 w-11 rounded-full hover:bg-black/5 transition"
                 aria-label="Fermer"
               >
-                <IconX className="h-8 w-8 text-black" />
+                <IconX className="h-8 w-8 text-white" />
               </button>
             </div>
 
@@ -153,24 +154,27 @@ export default function Header() {
               <img
                 src="/images/logo.png"
                 alt="Votez Jean-François Kouassi"
-                className="h-auto w-[120px]"
+                className="h-auto w-[240px]"
               />
             </div>
 
             {/* Liens centrés */}
             <div className="flex-1 flex flex-col items-center justify-center px-8 text-center">
-              <div className="space-y-6">
+              <div className="space-y-10">
                 {navLinks.map((l) => (
                   <Link
-                    key={l.href}
                     href={l.href}
+                    className="
+                      block text-4xl font-extrabold uppercase tracking-wide
+                      py-3
+                      transition-transform duration-200
+                      hover:scale-[1.02]
+                    "
                     onClick={() => setOpen(false)}
-                    className="block text-4xl font-extrabold tracking-wide uppercase"
-                    style={{ color: CI_GREEN }}
                   >
                     {l.label}
                   </Link>
-                ))}
+))}
               </div>
             </div>
 
