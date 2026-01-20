@@ -51,7 +51,7 @@ function SocialRow() {
     { label: "TikTok", href: "https://tiktok.com", icon: "tt" },
   ];
 
-  const Icon = ({ t }) => (
+  const Icon = ({ t }: { t: string }) => (
     <span className="grid place-items-center h-11 w-11 rounded-full border border-white/25 text-white/90 hover:bg-white/10 transition">
       <span className="text-xs font-extrabold uppercase">{t}</span>
     </span>
@@ -89,7 +89,7 @@ export default function Header() {
 
   // Fermer au clavier (ESC)
   useEffect(() => {
-    const onKey = (e) => {
+    const onKey = (e: { key: string; }) => {
       if (e.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
