@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --ci-orange: #F15A24;
 }
 
 @theme inline {
@@ -23,4 +24,24 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  height: 100%;
+  overscroll-behavior: none;
+  overflow-x: hidden;
+}
+html, body, #__next {
+  height: 100%;
+  overscroll-behavior: none;
+}
+@keyframes hero-zoom-pan {
+  0% {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: scale(1.14) translate3d(-2%, -1%, 0);
+  }
+}
+
+.hero-zoom {
+  animation: hero-zoom-pan 18s ease-out forwards;
+  will-change: transform;
 }

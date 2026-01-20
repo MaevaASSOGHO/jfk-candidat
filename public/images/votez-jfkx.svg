@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 970 394" width="100%" height="auto" preserveAspectRatio="xMidYMid meet">
+
+  <!-- Background -->
+  <rect width="970" height="394" fill="#0f0f10"></rect>
+
+  <!-- Frame (white) -->
+  <!-- Coordinates chosen to match your screenshot proportions -->
+  <rect x="78" y="90" width="814" height="220" fill="none" stroke="#ffffff" stroke-width="6"></rect>
+
+  <!-- We "cut" the top border under VOTEZ (same background color) -->
+  <!-- This creates the exact “gap” in the top border behind the title -->
+  <rect x="390" y="74" width="190" height="40" fill="#0f0f10"></rect>
+
+  <!-- Top horizontal lines (left + right), aligned to the top border -->
+  <line x1="78" y1="90" x2="360" y2="90" stroke="#ffffff" stroke-width="6"></line>
+  <line x1="610" y1="90" x2="892" y2="90" stroke="#ffffff" stroke-width="6"></line>
+
+  <!-- VOTEZ (placed ON the top border line, not above) -->
+  <text x="485" y="102" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="54" letter-spacing="4" fill="#ffffff">
+    VOTEZ
+  </text>
+
+  <!-- Name -->
+  <text x="485" y="225" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" letter-spacing="2" fill="#ffffff">
+    JEAN - FRANÇOIS KOUASSI
+  </text>
+
+</svg>

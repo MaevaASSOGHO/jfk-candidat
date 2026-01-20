@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 970 394"
+     preserveAspectRatio="xMidYMid meet">
+
+  <defs>
+    <style>
+      .stroke { stroke:#ffffff; stroke-width:6; fill:none; }
+      .title  { fill:#ffffff; font-family: Arial, Helvetica, sans-serif; font-size:54px; letter-spacing:4px; }
+      .name   { fill:#ffffff; font-family: Arial, Helvetica, sans-serif; font-size:54px; font-weight:700; letter-spacing:2px; }
+    </style>
+  </defs>
+
+  <!-- Frame -->
+  <line class="stroke" x1="78" y1="90" x2="78" y2="310"/>
+  <line class="stroke" x1="892" y1="90" x2="892" y2="310"/>
+  <line class="stroke" x1="78" y1="310" x2="892" y2="310"/>
+
+  <!-- Top line split -->
+  <line class="stroke" x1="78"  y1="90" x2="300" y2="90"/>
+  <line class="stroke" x1="670" y1="90" x2="892" y2="90"/>
+
+  <!-- VOTEZ -->
+  <text class="title" x="485" y="90" text-anchor="middle">VOTEZ</text>
+
+  <!-- Name -->
+  <text class="name" x="485" y="225" text-anchor="middle">JEAN - FRANÇOIS KOUASSI</text>
+</svg>
