@@ -150,7 +150,7 @@ export default function Header() {
             </div>
 
             {/* Logo (plus grand) */}
-            <div className="flex justify-center mt-2">
+            <div className="flex justify-center mt-2 mb-10">
               <img
                 src="/images/logo.png"
                 alt="Votez Jean-François Kouassi"
@@ -165,7 +165,7 @@ export default function Header() {
                   <Link
                     href={l.href}
                     className="
-                      block text-4xl font-extrabold uppercase tracking-wide
+                      block text-xl font-bold uppercase tracking-wide
                       py-3
                       transition-transform duration-200
                       hover:scale-[1.02]
@@ -179,7 +179,7 @@ export default function Header() {
             </div>
 
             {/* CTA en bas */}
-            <div className="px-6 pb-10">
+            <div className="px-6 pb-10 py-5">
               <Link
                 href="/don"
                 onClick={() => setOpen(false)}
