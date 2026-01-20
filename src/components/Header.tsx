@@ -72,9 +72,9 @@ export default function Header() {
             <img
               src="/images/logo.png"
               alt="Votez Jean-François Kouassi"
-              width={320}
-              height={140}
-              className="h-auto w-[220px] md:w-[320px]"
+              width={260}
+              height={110}
+              className="h-auto w-[220px] md:w-[260px]"
             />
           </Link>
 
@@ -134,7 +134,7 @@ export default function Header() {
             onClick={() => setOpen(false)}
           />
 
-          <div className="relative h-full w-full text-white"
+          <div className="relative h-full w-full text-white overflow-y-auto overscroll-contain"
             style={{ background: CI_GREEN }}>
             {/* Top bar */}
             <div className="flex items-center justify-between px-6 py-6">
@@ -150,7 +150,7 @@ export default function Header() {
             </div>
 
             {/* Logo (plus grand) */}
-            <div className="flex justify-center mt-2 mb-10">
+            <div className="flex justify-center mb-10">
               <img
                 src="/images/logo.png"
                 alt="Votez Jean-François Kouassi"
@@ -174,7 +174,7 @@ export default function Header() {
                   >
                     {l.label}
                   </Link>
-))}
+                ))}
               </div>
             </div>
 
