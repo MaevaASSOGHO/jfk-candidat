@@ -82,7 +82,7 @@ export default function NewsCardsCarousel({
     <section className="relative w-full text-white overflow-hidden">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('/images/5.jpg')" }}
+        style={{ backgroundImage: "url('/images/blason-civ.png')" }}
       />
       <div className="absolute inset-0 bg-black/60" />
 
