@@ -17,7 +17,7 @@ export default function InviteCandidateSection() {
       <div className="relative rounded-3xl border border-black/10 overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('/images/invite-bg.jpg')" }}
+          style={{ backgroundImage: "url('/images/invite.jpg')" }}
         />
         <div className="absolute inset-0 bg-black/55" />
 

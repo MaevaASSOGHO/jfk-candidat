@@ -37,7 +37,7 @@ export default function ContactPage() {
       <section className="relative min-h-screen text-white overflow-hidden">
         <Image
           key="hero-contact"
-          src="/images/hero-programme.jpg"
+          src="/images/contact.jpg"
           alt="Rejoindre le mouvement"
           fill
           priority

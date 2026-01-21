@@ -228,11 +228,11 @@ export default function ProgrammePage() {
       <section className="relative min-h-screen text-white overflow-hidden">
         <Image
           key="hero-programme"
-          src="/images/hero-programme.jpg" // <-- mets une image dédiée
+          src="/images/programme.jpg" // <-- mets une image dédiée
           alt="Vision & Programme"
           fill
           priority
-          className="object-cover hero-zoom"
+          className="object-cover hero-zoom object-top md:object-[10%_5%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
 

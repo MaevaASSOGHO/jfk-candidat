@@ -73,11 +73,11 @@ export default function CandidatPage() {
       <section className="relative min-h-screen text-white overflow-hidden">
         {/* IMAGE HERO (différente) */}
         <Image
-          src="/images/candidat-hero.jpg" // <-- photo sobre différente
+          src="/images/candidate.jpg" // <-- photo sobre différente
           alt="Le candidat"
           fill
           priority
-          className="object-cover hero-zoom"
+          className="object-cover hero-zoom object-top md:object-[5%_5%]"
         />
 
         {/* OVERLAY identique */}

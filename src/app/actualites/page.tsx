@@ -2,53 +2,55 @@
 
 import Header from "@/components/Header";
 import Image from "next/image";
+import type { NewsItem } from "@/components/NewsCardsCarousel";
 import NewsCardsCarousel from "@/components/NewsCardsCarousel";
 import UpcomingEvents from "@/components/UpcomingEvents";
 
 export default function ActualitesPage() {
-  const news = [
+  const news: NewsItem[] = [
     {
+      media: "/images/accueil/candidat.mp4",
       slug: "communique-01",
       title: "Communiqué : cap sur une campagne de proximité",
       excerpt: "Notre priorité : écouter, comprendre, agir avec des résultats mesurables.",
       category: "Communiqués" as const,
       date: "2026-01-18",
-      image: "/images/actu-1.jpg",
     },
     {
+      media: "/images/actualites/cocody.jpg",
       slug: "terrain-01",
-      title: "Terrain : échanges à Abobo avec les leaders communautaires",
+      title: "Terrain : échanges à Cocody avec les leaders communautaires",
       excerpt: "Une rencontre tournée vers l’emploi et la sécurité du quotidien.",
       category: "Terrain" as const,
       date: "2026-01-16",
-      image: "/images/actu-2.jpg",
     },
     {
-      slug: "presse-01",
-      title: "Presse : interview — vision, méthode, résultats",
-      excerpt: "Transparence, efficacité et justice : les axes d’action.",
-      category: "Presse" as const,
-      date: "2026-01-12",
-      image: "/images/actu-3.jpg",
-    },
-    {
+      media: "/images/actualites/universite.mp4",
       slug: "video-01",
-      title: "Vidéo : message à la jeunesse",
+      title: "Visite à la jeunesse de l'université méthodiste de Cocody",
       excerpt: "Former, insérer, soutenir l’initiative : la priorité nationale.",
       category: "Vidéos" as const,
       date: "2026-01-10",
-      image: "/images/actu-4.jpg",
+    },
+    {
+      media: "/images/actualites/simone.jpg",
+      slug: "presse-01",
+      title: "Rencontre avec l'ex-première Dame : Simone GBAGBO",
+      excerpt: "Transparence, efficacité et justice : les axes d’action.",
+      category: "Presse" as const,
+      date: "2026-01-12",
     },
   ];
 
+
   const events = [
     {
-      slug: "meeting-yopougon",
-      title: "Rencontre citoyenne — Yopougon",
+      slug: "meeting-cocody",
+      title: "Rencontre citoyenne — Cocody",
       date: "2026-02-02",
       time: "16:00",
-      location: "Yopougon (Abidjan)",
-      image: "/images/event-1.jpg",
+      location: "Cocody (Abidjan)",
+      image: "/images/actualites/event.jpg",
       content:
         "Échanges ouverts : emploi des jeunes, sécurité de proximité, pouvoir d’achat. Venez avec vos questions.",
       relatedSlugs: ["terrain-01", "communique-01"],
@@ -59,7 +61,7 @@ export default function ActualitesPage() {
       date: "2026-02-10",
       time: "10:00",
       location: "Bouaké",
-      image: "/images/event-2.jpg",
+      image: "images/actualites/cocody.jpg",
       content:
         "Rencontre avec les acteurs locaux : priorités, solutions, calendrier d’actions mesurables.",
       relatedSlugs: ["presse-01"],
@@ -73,7 +75,7 @@ export default function ActualitesPage() {
       <section className="relative min-h-screen text-white overflow-hidden">
         <Image
           key="hero-actus"
-          src="/images/candidat-hero.jpg"
+          src="/images/actus.jpg"
           alt="Actualités"
           fill
           priority

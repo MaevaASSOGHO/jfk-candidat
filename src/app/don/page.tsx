@@ -52,11 +52,11 @@ function DonContent() {
       <section className="relative min-h-screen text-white overflow-hidden">
         <Image
           key="hero-contact"
-          src="/images/hero-programme.jpg"
+          src="/images/don.jpg"
           alt="Rejoindre le mouvement"
           fill
           priority
-          className="object-cover hero-zoom"
+          className="object-cover hero-zoom object-top md:object-[10%_10%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
 

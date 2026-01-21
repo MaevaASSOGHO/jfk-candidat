@@ -155,7 +155,7 @@ export default function UpcomingEvents({
             {/* IMAGE DERRIERE */}
             <div
                 className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundImage: "url('/images/5.jpg')" }} // <-- mets ton image
+                style={{ backgroundImage: "url('/images/invite.jpg')" }} // <-- mets ton image
             />
 
             {/* OVERLAY pour lisibilité */}

@@ -11,11 +11,11 @@ export default function Home() {
         <Header/>
         {/* IMAGE HERO */}
         <Image
-          src="/images/hero-jfk.jpg"
+          src="/images/accueil.png"
           alt="Jean-François Kouassi"
           fill
           priority
-          className="object-cover hero-zoom"
+          className="object-cover hero-zoom object-top md:object-[50%_10%]"
         />
 
         {/* OVERLAY */}

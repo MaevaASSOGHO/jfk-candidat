@@ -1,21 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type Category = "Communiqués" | "Terrain" | "Presse" | "Vidéos";
 
-type NewsItem = {
+export type NewsItem = {
   slug: string;
   title: string;
   excerpt: string;
   category: Category;
-  date: string; // "2026-01-18"
-  image: string; // public/images/xxx.jpg
+  date: string;
+  media: string;      // image OU vidéo
+  poster?: string;    // si vidéo
 };
 
 const CI_ORANGE = "#F15A24";
 const CI_GREEN = "#007A3D";
+
+const isVideo = (src: string) => /\.(mp4|webm|mov)$/i.test(src);
 
 export default function NewsCardsCarousel({
   items,
@@ -25,6 +28,7 @@ export default function NewsCardsCarousel({
   baseHref?: "/actualites" | "/presse";
 }) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const [active, setActive] = useState<Category | "Tous">("Tous");
   const [q, setQ] = useState("");
@@ -59,9 +63,23 @@ export default function NewsCardsCarousel({
     "Vidéos",
   ];
 
+  // iOS autoplay safe (ne touche PAS au layout)
+  useEffect(() => {
+    videoRefs.current.forEach((v) => {
+      if (!v) return;
+      v.muted = true;
+      v.playsInline = true;
+      v.loop = true;
+      v.setAttribute("muted", "");
+      v.setAttribute("playsinline", "");
+      v.setAttribute("webkit-playsinline", "");
+      (v as any).webkitPlaysInline = true;
+      v.play().catch(() => {});
+    });
+  }, [filtered.length]);
+
   return (
     <section className="relative w-full text-white overflow-hidden">
-      {/* Background image cover (comme ton MenuCardsCarousel) */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: "url('/images/5.jpg')" }}
@@ -69,21 +87,19 @@ export default function NewsCardsCarousel({
       <div className="absolute inset-0 bg-black/60" />
 
       <div className="relative max-w-7xl mx-auto px-6 py-14">
-        {/* Header + filtres + search */}
+        {/* Header */}
         <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.32em] font-semibold text-white/80">
               Filtrer & explorer
             </p>
-            <h2 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight">
+            <h2 className="mt-3 text-3xl md:text-4xl font-extrabold">
               Dernières publications
             </h2>
-            <div className="mt-5 h-1 w-44 overflow-hidden rounded-full">
-              <div className="h-full grid grid-cols-3">
-                <div style={{ background: CI_ORANGE }} />
-                <div className="bg-white" />
-                <div style={{ background: CI_GREEN }} />
-              </div>
+            <div className="mt-5 h-1 w-44 rounded-full overflow-hidden grid grid-cols-3">
+              <div className="bg-[#F15A24]" />
+              <div className="bg-white" />
+              <div className="bg-[#007A3D]" />
             </div>
           </div>
 
@@ -96,126 +112,118 @@ export default function NewsCardsCarousel({
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Ex : discours, tournée, presse…"
-              className="mt-2 w-full rounded-2xl bg-white/10 border border-white/20 px-4 py-3 text-white placeholder:text-white/50 outline-none focus:ring-4 focus:ring-white/15"
+              className="mt-2 w-full rounded-2xl bg-white/10 border border-white/20 px-4 py-3 text-white placeholder:text-white/50 outline-none"
             />
           </div>
         </div>
 
         {/* Tabs */}
         <div className="mt-8 flex flex-wrap gap-3">
-          {categories.map((c) => {
-            const isActive = c === active;
+          {categories.map((c) => (
+            <button
+              key={c}
+              onClick={() => setActive(c)}
+              className={`rounded-full px-5 py-2 text-sm font-bold uppercase tracking-widest border transition ${
+                active === c
+                  ? "bg-white text-black border-white"
+                  : "bg-white/10 text-white border-white/25 hover:bg-white/15"
+              }`}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+
+        {/* Cards */}
+        <div
+          ref={scrollerRef}
+          className="group/rail mt-10 flex gap-6 overflow-x-auto py-6 snap-x snap-mandatory scroll-smooth"
+          style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
+        >
+          {filtered.map((n, idx) => {
+            const video = isVideo(n.media);
+
             return (
-              <button
-                key={c}
-                type="button"
-                onClick={() => setActive(c)}
-                className={[
-                  "rounded-full px-5 py-2 text-sm font-bold uppercase tracking-widest",
-                  "border transition",
-                  isActive
-                    ? "bg-white text-black border-white"
-                    : "bg-white/10 text-white border-white/25 hover:bg-white/15",
-                ].join(" ")}
+              <Link
+                key={n.slug}
+                href={`${baseHref}/${n.slug}`}
+                data-card="1"
+                className="snap-start min-w-[300px] w-[300px] md:min-w-[360px] md:w-[360px] lg:min-w-[420px] lg:w-[420px]
+                           rounded-2xl overflow-hidden bg-white text-black relative transition-transform duration-700
+                           hover:scale-[1.09] hover:z-30"
               >
-                {c}
-              </button>
+                {/* Texte */}
+                <div className="p-7 bg-white">
+                  <div className="flex justify-between text-xs font-semibold text-black/55">
+                    <span
+                      className="font-extrabold uppercase tracking-[0.22em]"
+                      style={{ color: n.category === "Terrain" ? CI_GREEN : CI_ORANGE }}
+                    >
+                      {n.category}
+                    </span>
+                    <span>
+                      {new Date(n.date).toLocaleDateString("fr-FR", {
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-4 text-xl md:text-2xl font-extrabold">
+                    {n.title}
+                  </h3>
+                  <p className="mt-4 text-black/70">
+                    {n.excerpt}
+                  </p>
+                </div>
+
+                {/* MEDIA — FULL BLEED, SANS MARGE */}
+                <div className="relative h-[240px] md:h-[300px] bg-black overflow-hidden">
+                  {video ? (
+                    <video
+                      ref={(el) => {
+                        videoRefs.current[idx] = el;
+                      }}
+                      src={n.media}
+                      poster={n.poster}
+                      muted
+                      playsInline
+                      loop
+                      autoPlay
+                      preload="auto"
+                      disablePictureInPicture
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <img
+                      src={n.media}
+                      alt={n.title}
+                      className="absolute inset-0 w-full h-full object-cover block"
+                      loading="lazy"
+                    />
+                  )}
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+                </div>
+              </Link>
             );
           })}
         </div>
 
-        {/* Cards rail */}
-        <div
-          ref={scrollerRef}
-          className="
-            group/rail
-            mt-10
-            flex gap-6
-            overflow-x-auto overflow-y-visible
-            py-6
-            snap-x snap-mandatory
-            scroll-smooth
-          "
-          style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
-        >
-          {filtered.map((n) => (
-            <Link
-              key={n.slug}
-              href={`${baseHref}/${n.slug}`}
-              data-card="1"
-              className="
-                snap-start
-                min-w-[300px] w-[300px]
-                md:min-w-[360px] md:w-[360px]
-                lg:min-w-[420px] lg:w-[420px]
-                rounded-2xl overflow-hidden
-                bg-white text-black
-                transition-transform duration-700 ease-out
-                relative
-                z-10
-                hover:scale-[1.09] hover:z-30
-                will-change-transform
-              "
-            >
-              {/* Header */}
-              <div className="p-7 bg-white">
-                <div className="flex items-center justify-between gap-3">
-                  <span
-                    className="text-xs font-extrabold uppercase tracking-[0.22em]"
-                    style={{ color: n.category === "Terrain" ? CI_GREEN : CI_ORANGE }}
-                  >
-                    {n.category}
-                  </span>
-                  <span className="text-xs font-semibold text-black/55">
-                    {new Date(n.date).toLocaleDateString("fr-FR", {
-                      day: "2-digit",
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </span>
-                </div>
-
-                <h3 className="mt-4 text-xl md:text-2xl font-extrabold tracking-tight">
-                  {n.title}
-                </h3>
-                <p className="mt-4 text-base md:text-lg text-black/70 leading-relaxed">
-                  {n.excerpt}
-                </p>
-              </div>
-
-              {/* Image */}
-              <div className="relative h-[240px] md:h-[300px] bg-black">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={n.image}
-                  alt={n.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
-              </div>
-            </Link>
-          ))}
-        </div>
-
         {/* Arrows */}
-        <div className="mt-2 flex items-center justify-between">
+        <div className="mt-2 flex justify-between">
           <button
-            type="button"
             onClick={() => scrollByCards("left")}
-            className="inline-flex items-center justify-center h-12 w-12 rounded-full border border-white/40 bg-white/10 hover:bg-white/20 transition"
-            aria-label="Précédent"
+            className="h-12 w-12 rounded-full border border-white/40 bg-white/10"
           >
-            <span className="text-2xl leading-none">←</span>
+            ←
           </button>
-
           <button
-            type="button"
             onClick={() => scrollByCards("right")}
-            className="inline-flex items-center justify-center h-12 w-12 rounded-full border border-white/40 bg-white/10 hover:bg-white/20 transition"
-            aria-label="Suivant"
+            className="h-12 w-12 rounded-full border border-white/40 bg-white/10"
           >
-            <span className="text-2xl leading-none">→</span>
+            →
           </button>
         </div>
       </div>
